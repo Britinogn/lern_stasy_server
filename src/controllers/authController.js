@@ -87,7 +87,7 @@ exports.profile = async (req, res) => {
   try {
     const user = await User.findById(req.userId).select('-password');
     res.json(user)
-    res.status(200).json({ message: "User profile Fetech" });
+    res.status(200).json({ message: "User profile Fetch" });
     
   } catch (error) {
     res.status(500).json({ message: error.message });

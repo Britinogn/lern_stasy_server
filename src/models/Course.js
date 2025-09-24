@@ -10,7 +10,7 @@ const courseSchema = new mongoose.Schema({
     image: { url: String, public_id: String },
     isPublished: { type: Boolean, default: false },
     tags: [{ type: String, trim: true }],
-    lessons: [{type: mongoose.Schema.Types.ObjectId, ref: 'Lessons'}]
+    lessons: [{type: mongoose.Schema.Types.ObjectId, ref: 'Lesson'}]
 
 
 }, { timestamps: true });

@@ -1,11 +1,13 @@
 const jwt = require ('jsonwebtoken');
 
+// 🔹 Authentication middleware
+
 module.exports = (req, res, next) =>{
 
     const header = req.headers.authorization;
 
     if (!header || !header.startsWith('Bearer ')) {
-        return res.status(401).json({message: 'Access denied'});
+        return res.status(401).json({message: 'Access denied. No token provided.'});
     }
 
     const token = header.split(' ')[1].trim();
@@ -21,7 +23,7 @@ module.exports = (req, res, next) =>{
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         // Attach whole decoded token + id shortcut
         req.user = decoded;
-        req.userId = decoded.id;
+        req.userId = decoded.id || decoded._id;
         req.userRole = decoded.role;  
 
         next();
@@ -29,9 +31,4 @@ module.exports = (req, res, next) =>{
     } catch (error) {
         return res.status(401).json({message: 'Invalid token'});
     }
-
 };
-
-
-
-// module.exports = authenticateToken;
