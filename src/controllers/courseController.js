@@ -39,7 +39,7 @@ exports.getCourse = async (req, res) => {
   // my logic
   try {
     const course = await Course.findById(req.params.id)
-    .populate('instructor', 'userName email')
+    .populate('instructor', 'fullName')
     .populate({
       path: 'lessons',
       options:{sort: {createdAt: -1}},

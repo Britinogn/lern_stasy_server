@@ -10,8 +10,8 @@ const { requireRole }  = require('../middleware/roleMiddleware');
 
 // Student routes
 router.get('/', auth, requireRole('student'), progressController.getCourseProgress);
-router.post('/lesson/:lessonId/complete', auth, requireRole('student'), progressController.markLessonComplete);
-router.put('/lesson/:lessonId/progress', auth, requireRole('student'), progressController.updateLessonProgress);
+router.post('/:lessonId/complete', auth, requireRole('student'), progressController.markLessonComplete);
+router.put('/:lessonId/progress', auth, requireRole('student'), progressController.updateLessonProgress);
 router.delete('/lesson/:lessonId', auth, requireRole('student'), progressController.resetLessonProgress);
 
 // Instructor routes

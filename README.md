@@ -14,3 +14,7 @@ Updated models to reflect changes in relationships and added new fields for comm
 
 Cleaned up routes to ensure proper access control and organization.
 Removed unused middleware files for cleaner codebase.
+
+<!--  -->
+
+Refactor routes and update course population fields
