@@ -1,8 +1,5 @@
 const Course = require('../models/Course')
-// const Lesson = require('../models/Course')
-// const Comment = require('../models/Comment')
 const Cloudinary = require('../config/cloudinary');
-//const Lessons = require('../models/Lessons');
 
 //   GET all course
 exports.getCourses = async (req, res) => {
@@ -20,18 +17,6 @@ exports.getCourses = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-
-  // try {
-  //     const courses = await Course.find()
-  //         .populate('instructor', 'fullName userName')
-  //         .sort({ createdAt: -1 });
-
-  //     res.status(200).json({ courses });
-
-  // } catch (error) {
-  //     console.error('Get courses error:', error);
-  //     res.status(500).json({ message: 'Server error fetching courses' });
-  // }
 
 };
 
@@ -55,10 +40,8 @@ exports.getCourse = async (req, res) => {
 
 //create[POST] a new course 
 exports.createCourse = async (req, res) => {
-  // my logic
   try {
     const {title, description, category, price, tags } = req.body;
-    //const instructor = req.userId;  // from auth middleware
 
     if (!title || !description || !category || price === undefined) {
       return res.status(400).json({ 
@@ -75,8 +58,6 @@ exports.createCourse = async (req, res) => {
       tags: tags ? tags.split(',').map(t => t.trim()) : [],
       instructor: req.userId
     });
-
-     
 
     //handle image upload if present
 

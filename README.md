@@ -18,3 +18,4 @@ Removed unused middleware files for cleaner codebase.
 <!--  -->
 
 Refactor routes and update course population fields
+Implement user registration and password reset functionality with email notifications; add cookie-parser middleware and refactor routes for better organization.
