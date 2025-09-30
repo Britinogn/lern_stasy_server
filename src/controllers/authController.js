@@ -6,9 +6,13 @@ const transporter = require ('../config/nodemailer')
 //REGISTER
 exports.register = async(req , res) => {
     try {
-        const {fullName, userName, email ,password , role} = req.body;
-        if (!fullName || !userName || !email || !password || !role)
-        return res.status(400).json({ message: 'All fields required' });
+        const { fullName, userName, email, password, role = 'student' } = req.body;
+        if (!fullName || !userName || !email || !password) {
+            return res.status(400).json({ message: 'All fields required' });
+        }
+        if (!['student', 'instructor'].includes(role)) {
+            return res.status(400).json({ message: 'Invalid role' });
+        }
 
         const existingUser = await User.findOne({$or: [{ email }, { userName }] })
         if(existingUser) {
@@ -56,7 +60,7 @@ exports.register = async(req , res) => {
           fullName: user.fullName, 
           userName: user.userName, 
           email: user.email ,
-          role:user.role,
+          role: user.role,
           token,
         });
 
@@ -102,6 +106,7 @@ exports.login = async (req, res) => {
       message: 'User logged in',
       token,
       refreshToken,
+      role: user.role,
     });
 
   } catch (err) {

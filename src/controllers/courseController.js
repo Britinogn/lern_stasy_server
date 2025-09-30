@@ -7,13 +7,13 @@ exports.getCourses = async (req, res) => {
   try {
     const { page = 1, limit = 10 } = req.query;
     const skip = (page - 1) * limit;
-    const total = await Course.countDocuments();
+    const totalPages = await Course.countDocuments();
     const courses = await Course.find()
       .populate('instructor', 'fullName  userName')
       .sort({ createdAt: -1 })
       .skip(Number(skip))
       .limit(Number(limit));
-    res.json({ total, page: Number(page), limit: Number(limit), courses });
+    res.json({ totalPages, page: Number(page), limit: Number(limit), courses });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
