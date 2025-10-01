@@ -5,7 +5,7 @@ exports.getInstructorDashboard = async (req, res) => {
     // Fetch courses created by instructor with lessons and students populated
     const courses = await Course.find({ instructor: req.userId })
       .populate("lessons")
-      .populate("student", "fullName email"); // Now this will work!
+      .populate("students", "fullName email"); // Now this will work!
 
     // Calculate total statistics
     const dashboardStats = {

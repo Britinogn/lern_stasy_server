@@ -147,6 +147,15 @@ exports.deleteCourse = async (req, res) => {
 };
 
 
+// Example: backend controller
+exports.getInstructorCourses = async (req, res) => {
+  try {
+    const courses = await Course.find({ instructor: req.userId }); 
+    res.json(courses);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch instructor courses" });
+  }
+};
 
 
 

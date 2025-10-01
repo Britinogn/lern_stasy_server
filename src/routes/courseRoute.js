@@ -23,6 +23,12 @@ router.post('/', auth, requireRole('instructor') ,upload.single('image') , cours
 router.put('/:id',auth, requireRole('instructor'),  upload.single('image'), courseController.updateCourse)
 router.delete('/:id', auth, requireRole('instructor'), courseController.deleteCourse)
 
+// ✅ Correct
+router.get('/', auth, requireRole('instructor'), courseController.getInstructorCourses);
+
+
+
+
 // Student routes (authenticated)
 //router.get('/:id/enroll', auth, courseController.enrollCourse)
 //router.get('/:id/lessons', auth, courseController.getCourseLessons) // Enrolled students only
