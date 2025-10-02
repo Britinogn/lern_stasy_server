@@ -30,7 +30,7 @@ router.get('/', auth, requireRole('instructor'), courseController.getInstructorC
 
 
 // Student routes (authenticated)
-//router.get('/:id/enroll', auth, courseController.enrollCourse)
+//router.get('/:id/enrollment-status', auth, courseController.checkEnrollmentStatus)
 //router.get('/:id/lessons', auth, courseController.getCourseLessons) // Enrolled students only
 //router.get('/:id/progress', auth, courseController.getCourseProgress)
 

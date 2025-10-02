@@ -48,6 +48,8 @@ exports.getEnroll = async (req, res) => {
 exports.createEnroll = async (req, res) => {
   try {
    const {studentId, courseId} = req.body;
+   console.log('Create enrollment request:', { studentId, courseId, userId: req.userId, userRole: req.userRole });
+   
    if (!studentId || !courseId) {
     return res.status(400).json({ message: 'studentId and courseId are required' });
    }
