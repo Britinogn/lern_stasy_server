@@ -47,47 +47,34 @@ exports.getEnroll = async (req, res) => {
 // CREATE a new enrollment
 exports.createEnroll = async (req, res) => {
   try {
-   const {studentId, courseId} = req.body;
-   console.log('Create enrollment request:', { studentId, courseId, userId: req.userId, userRole: req.userRole });
-   
-   if (!studentId || !courseId) {
-    return res.status(400).json({ message: 'studentId and courseId are required' });
-   }
+    const { studentId } = req.body;
+    const { courseId } = req.params;
 
-    // Prevent duplicate enrollment
-    const existingEnrollment  = await Enroll.findOne({studentId, courseId});
-    if (existingEnrollment ) {
-      return res.status(400).json({ message: 'Student already enrolled in this course' });
+    console.log("📘 Enrollment attempt:", { studentId, courseId });
+
+    if (!studentId || !courseId) {
+      return res.status(400).json({ message: 'studentId and courseId are required.' });
     }
 
-    const enrolledAt = new Date();
+    const existingEnrollment = await Enroll.findOne({ studentId, courseId });
+    if (existingEnrollment) {
+      return res.status(409).json({ message: 'You are already enrolled in this course.' });
+    }
 
-    const newEnroll = await Enroll.create({
-      studentId,
-      courseId,
-      enrolledAt,
-      progress: [],
-      completionPercentage: 0
-    })
-
-    // Populate the response for consistency
-    const populatedEnroll = await Enroll.findById(newEnroll._id)
-        .populate('studentId', 'fullName email')
-        .populate('courseId', 'title description');
-
-    res.status(201).json({
+    const enrollment = await Enroll.create({ studentId, courseId });
+    return res.status(201).json({
       message: 'Enrollment successful',
-      enrollment: populatedEnroll,
-      newEnroll
+      enrollment,
     });
-
-    // res.status(201).json(newEnroll);
-
   } catch (error) {
-    res.status(500).json({ message: error.message });
-
+    console.error('❌ Enrollment error:', error);
+    return res.status(500).json({
+      message: 'Enrollment failed. Please try again.',
+      error: error.message,
+    });
   }
 };
+
 
 // UPDATE enrollment (e.g., progress, status)
 exports.updateEnroll = async (req, res) => {

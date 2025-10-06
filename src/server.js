@@ -21,8 +21,8 @@ app.use(cookieParser())
 app.use('/api/auth', require('./routes/authRoute'));
 app.use('/api/courses', require('./routes/courseRoute'));
 app.use('/api/lessons', require('./routes/lessonRoute'));
-app.use('/api/courses/:courseId/lessons', require('./routes/lessonRoute'));
-app.use('/api/lessons/', require('./routes/progressRoute'));
+app.use('/api/courses/:courseId/lesson', require('./routes/lessonRoute'));
+app.use('/api/lessons/:lessonId/progress', require('./routes/progressRoute'));
 
 app.use('/api/lessons/:lessonId/comments', require('./routes/commentRoute'));
 app.use('/api/courses/:courseId/enrollments', require('./routes/enrollRoute'));

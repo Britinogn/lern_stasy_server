@@ -107,6 +107,7 @@ exports.login = async (req, res) => {
       token,
       refreshToken,
       role: user.role,
+      id: user._id,
     });
 
   } catch (err) {
