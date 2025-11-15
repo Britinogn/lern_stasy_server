@@ -78,7 +78,7 @@ exports.login = async (req, res) => {
     const {userName, email, password} = req.body;
     //if (!userName && !email || !password)
     if ((!userName && !email) || !password)
-    return res.status(400).json({ message: 'username or email and password are required' });
+    return res.status(400).json({ message: 'Please provide your username or email, and your password to continue.'  });
 
     const user = await User.findOne({$or: [{ email }, { userName }] })
     if (!user){
@@ -205,7 +205,6 @@ exports.resetPassword = async (req, res) => {
     return res.status(400).send('<h3>Invalid or expired token</h3>');
   }
 };
-
 
 
 //PROFILE
